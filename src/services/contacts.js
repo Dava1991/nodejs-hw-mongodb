@@ -29,7 +29,7 @@ export const updateContact = async (contactId, payload, options = {}) => {
 
   return {
     contact: updatedContact.value,
-    isNew: updatedContact?.lastErrorObject?.upserted,
+    isNew: Boolean(updatedContact?.lastErrorObject?.upserted),
   };
 };
 
