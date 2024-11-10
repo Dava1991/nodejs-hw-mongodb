@@ -1,19 +1,20 @@
-import { model, Schema } from 'mongoose';
+import mongoose from 'mongoose';
+import { env } from '../utils/env.js';
 
-const ContactsSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    phoneNumber: { type: String, requared: true },
-    email: { type: String },
-    isFavourite: { type: Boolean, default: false },
-    contactType: {
-      type: String,
-      requared: true,
-      enum: ['work', 'home', 'personal'],
-      default: 'personal',
-    },
-  },
-  { timestamps: true, versionKey: false },
-);
+export const initMongoConnection = async () => {
+  try {
+    const user = env('MONGODB_USER');
+    const pwd = env('MONGODB_PASSWORD');
+    const url = env('MONGODB_URL');
+    const db = env('MONGODB_DB');
 
-export const ContactsCollection = model('contacts', ContactsSchema);
+    await mongoose.connect(
+      `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority`,
+    );
+
+    console.log('Mongo connection successfully established!');
+  } catch (error) {
+    console.log('Error while setting up mongo connection', error);
+    throw error;
+  }
+};
