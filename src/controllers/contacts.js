@@ -51,31 +51,30 @@ export const getContactByIdController = async (req, res) => {
 export const createContactController = async (req, res) => {
   const body = req.body;
 
-  if (body.name && body.phoneNumber && body.contactType) {
-    const newContact = await createContact(body);
+  const newContact = await createContact(body);
 
-    res.status(201).json({
-      status: 201,
-      message: 'Successfully created a contact!',
-      data: newContact,
-    });
-  }
-
-  throw createHttpError(500, 'Incorrect body of request');
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully created a contact!',
+    data: newContact,
+  });
 };
 
 export const updateContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await updateContact(contactId, req.body);
-  if (!result) {
-    next(createHttpError(404, `Contact with id ${contactId} was not found`));
+  const body = req.body;
+
+  const updContact = await updateContact(contactId, body);
+
+  if (updContact === null) {
+    next(createHttpError(404, `Contact whith id ${contactId} not found`));
     return;
   }
 
   res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: result.contact,
+    data: updContact.contact,
   });
 };
 

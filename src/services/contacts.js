@@ -22,7 +22,7 @@ export const getAllContacts = async ({
         contactsQuery.where('isFavourite').equals(filter.isFavourite);
       }
 
-      const [contacts, Contacts] = await Promise.all([
+      const [contactsCo, contacts] = await Promise.all([
         ContactsCollection.find().merge(contactsQuery).countDocuments(),
         contactsQuery
           .skip(skip)
@@ -32,9 +32,9 @@ export const getAllContacts = async ({
       ]);
 
 
-      const paginationData = calculatePaginationData(contacts, page, perPage);
+      const paginationData = calculatePaginationData(contactsCo, page, perPage);
 
-  return { data: Contacts, ...paginationData };
+  return { data: contacts, ...paginationData };
 };
 
 export const getContactById = async (contactId) => {
@@ -60,7 +60,7 @@ export const updateContact = async (contactId, payload, options = {}) => {
 
   return {
     contact: updatedContact.value,
-    isNew: Boolean(updatedContact?.lastErrorObject?.upserted),
+    isNew: updatedContact?.lastErrorObject?.upserted,
   };
 };
 
