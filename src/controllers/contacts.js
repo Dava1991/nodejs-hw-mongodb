@@ -101,11 +101,13 @@ export const upsertContactController = async (req, res, next) => {
   const body = req.body;
   const userId = req.user._id;
 
+  const options = { upsert: true };
+
   const upsertContact = await updateContact({
-      _id,
-      body,
-      { upsert: true },
-      userId,
+    _id,
+    body,
+    options,
+    userId,
   });
 
   if (!upsertContact) {
