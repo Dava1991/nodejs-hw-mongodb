@@ -6,12 +6,12 @@ import { handleSaveError, setupUpdateValidator } from './hooks.js';
 const ContactsSchema = new Schema(
   {
     name: { type: String, required: true },
-    phoneNumber: { type: String, requared: true },
+    phoneNumber: { type: String, required: true },
     email: { type: String },
     isFavourite: { type: Boolean, default: false },
     contactType: {
       type: String,
-      requared: true,
+      required: true,
       enum: contactsTypeList,
       default: 'personal',
     },

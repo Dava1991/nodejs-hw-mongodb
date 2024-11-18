@@ -11,11 +11,9 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getAllContactsController = async (req, res) => {
-    console.log(req.query, 'req query in controller');
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortOrder, sortBy } = parseSortParams(req.query);
     const filter = parseFilterParams(req.query);
-    console.log(filter, 'filter ai controller');
     const userId = req.user._id;
 
   const contacts = await getAllContacts({
@@ -40,7 +38,7 @@ const userId = req.user._id.toString();
   const contact = await getContactById({ userId, contactId });
 
   if (!contact) {
-    throw createHttpError(404, `Contact whit id ${contactId} not found`);
+    throw createHttpError(404, `Contact with id ${contactId} not found`);
   }
 
   res.status(200).json({
@@ -71,7 +69,7 @@ export const updateContactController = async (req, res, next) => {
   const updContact = await updateContact({ _id, body, options, userId });
 
   if (updContact === null) {
-    next(createHttpError(404, `Contact whith id ${_id} not found`));
+    next(createHttpError(404, `Contact with id ${_id} not found`));
     return;
   }
 

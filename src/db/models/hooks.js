@@ -1,4 +1,4 @@
-export const handleSaveError = (error, _data, next) => {
+export const handleSaveError = (error, data, next) => {
     error.status = 400;
     next();
   };

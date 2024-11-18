@@ -19,42 +19,44 @@ import { authenticate } from '../middlewares/authenticate.js';
 
 import { authorization } from '../middlewares/authorization.js';
 
-const router = Router();
+const Crouter = Router();
 
-router.use(authenticate);
+Crouter.use(authenticate);
 
-router.use(authorization);
+Crouter.use(authorization);
 
-router.get(
+Crouter.get('/', ctrlWrapper(getAllContactsController));
+
+Crouter.get(
     '/:contactId',
     isValidId,
     ctrlWrapper(getContactByIdController),
   );
 
-  router.post(
+  Crouter.post(
     '/',
     validateBody(createContactsSchema),
     ctrlWrapper(createContactController),
   );
 
-  router.patch(
+  Crouter.patch(
     '/:contactId',
     isValidId,
     validateBody(updateContactSchema),
     ctrlWrapper(updateContactController),
   );
 
-  router.delete(
+  Crouter.delete(
     '/:contactId',
     isValidId,
     ctrlWrapper(deleteContactController),
   );
 
-  router.put(
+  Crouter.put(
     '/:contactId',
     isValidId,
     validateBody(createContactsSchema),
     ctrlWrapper(upsertContactController),
   );
 
-  export default router;
+  export default Crouter;
