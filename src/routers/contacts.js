@@ -35,12 +35,14 @@ Crouter.get(
 
   Crouter.post(
     '/',
+    upload.single('photo'),
     validateBody(createContactsSchema),
     ctrlWrapper(createContactController),
   );
 
   Crouter.patch(
     '/:contactId',
+    upload.single('photo'),
     isValidId,
     validateBody(updateContactSchema),
     ctrlWrapper(updateContactController),
@@ -54,6 +56,7 @@ Crouter.get(
 
   Crouter.put(
     '/:contactId',
+    upload.single('photo'),
     isValidId,
     validateBody(createContactsSchema),
     ctrlWrapper(upsertContactController),
