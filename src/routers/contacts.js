@@ -19,6 +19,8 @@ import { authenticate } from '../middlewares/authenticate.js';
 
 import { authorization } from '../middlewares/authorization.js';
 
+import { upload } from '../middlewares/multer.js';
+
 const Crouter = Router();
 
 Crouter.use(authenticate);
