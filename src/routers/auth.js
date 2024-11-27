@@ -41,4 +41,9 @@ router.post(
     ctrlWrapper(resetPasswordController),
   );
 
+  router.get(
+    '/get-oauth-url',
+    ctrlWrapper(getGoogleOAuthUrlController),
+  );
+
 export default router;
