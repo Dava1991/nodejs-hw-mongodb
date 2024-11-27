@@ -123,3 +123,17 @@ export const sendResetEmailController = async (req, res) => {
          }
     });
   };
+
+  export const loginWithGoogleController = async(req, res)=> {
+    const session = await authServices.loginOrRegisterWithGoogle(req.body.code);
+
+    setupSession(res, session);
+
+    res.json({
+         status: 200,
+         message: "Successfully login with Google",
+         data: {
+          accessToken: session.accessToken,
+         }
+    });
+  };
