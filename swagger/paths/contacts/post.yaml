@@ -1,8 +1,8 @@
 tags:
-  - Students
-summary: Create student
-operationId: createStudent
-description: 'Create a student with payload'
+  - Contacts
+summary: Create contact
+operationId: createContact
+description: 'Create a contact with payload'
 security:
   - bearerAuth: []
 requestBody:
@@ -18,7 +18,7 @@ requestBody:
           - parentId
         properties:
           name:
-            description: "Student's name"
+            description: "User's name"
             type: string
             example: 'John Doe'
           age:
@@ -65,6 +65,6 @@ responses:
               example: Successfully created a student!
             data:
               type: object
-              $ref: '../../components/schemas/student.yaml'
+              $ref: '../../components/schemas/contact.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
