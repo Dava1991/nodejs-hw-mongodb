@@ -6,8 +6,10 @@ import {
   registerUser,
   requestResetToken,
   resetPassword,
+  loginOrRegisterWithGoogle,
 } from '../services/auth.js';
 
+import createHttpError from 'http-errors';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
 //register User controller
@@ -124,12 +126,14 @@ export const sendResetEmailController = async (req, res) => {
     });
   };
 
+  // login with google controller
+
   export const loginWithGoogleController = async(req, res)=> {
     const session = await authServices.loginOrRegisterWithGoogle(req.body.code);
 
     setupSession(res, session);
 
-    res.json({
+    res.status(200).json({
          status: 200,
          message: "Successfully login with Google",
          data: {

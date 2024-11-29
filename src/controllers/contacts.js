@@ -13,6 +13,8 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { env } from '../utils/env.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
+// get all contacts controller
+
 export const getAllContactsController = async (req, res) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortOrder, sortBy } = parseSortParams(req.query);
@@ -35,6 +37,8 @@ export const getAllContactsController = async (req, res) => {
   });
 };
 
+// get contact by ID controller
+
 export const getContactByIdController = async (req, res) => {
   const { contactId } = req.params;
 const userId = req.user._id.toString();
@@ -50,6 +54,8 @@ const userId = req.user._id.toString();
     data: contact,
   });
 };
+
+//create contact controller
 
 export const createContactController = async (req, res) => {
   const userId = req.user._id;
@@ -73,6 +79,8 @@ export const createContactController = async (req, res) => {
     data: newContact,
   });
 };
+
+//update contact by ID controller
 
 export const updateContactController = async (req, res, next) => {
   const { contactId: _id } = req.params;
@@ -106,6 +114,8 @@ export const updateContactController = async (req, res, next) => {
   });
 };
 
+//delete contact controller
+
 export const deleteContactController = async (req, res, next) => {
   const { contactId: _id } = req.params;
   const userId = req.user._id;
@@ -119,6 +129,8 @@ export const deleteContactController = async (req, res, next) => {
 
   res.status(204).json({ status: 204 });
 };
+
+//upsert contact controller
 
 export const upsertContactController = async (req, res, next) => {
   const { contactId: _id } = req.params;

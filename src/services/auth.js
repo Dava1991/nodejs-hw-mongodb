@@ -169,13 +169,13 @@ export const requestResetToken = async (email) => {
     await SessionCollection.findOneAndDelete({ userId: user._id });
   };
 
-   //login with Google
+   //login or register with Google
 
    export const loginOrRegisterWithGoogle = async code => {
     const loginTicket = await validateCode(code);
     const payload = loginTicket.getPayload();
     if(!payload) {
-       throw createHttpError(401);
+       throw createHttpError(401, 'Unauthorized');
     }
 
     let user = await UsersCollection.findOne ({
