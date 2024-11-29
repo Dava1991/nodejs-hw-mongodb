@@ -13,7 +13,7 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: https://nodejs-hw-mongodb-e7ly.onrender.com
+  - url: https://hw7-swagger-64fv.onrender.com
   - url: http://localhost:3000
 paths:
   /contacts:
