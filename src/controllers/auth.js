@@ -39,6 +39,9 @@ export const loginUserController = async (req, res) => {
 };
 
 export const logoutUserController = async (req, res) => {
+  if (!req.cookies.sessionId) {
+    throw createHttpError(401, 'Unauthorized');
+  }
   if (req.cookies.sessionId) {
     await logoutUser(req.cookies.sessionId);
   }
@@ -117,7 +120,7 @@ export const sendResetEmailController = async (req, res) => {
   export const getGoogleOAuthUrlController = async(req, res)=> {
     const url = generateAuthUrl();
 
-    res.json({
+    res.status(200).json({
          status: 200,
          message: "Successfully get Google OAuth url",
          data: {
@@ -129,7 +132,7 @@ export const sendResetEmailController = async (req, res) => {
   // login with google controller
 
   export const loginWithGoogleController = async(req, res)=> {
-    const session = await authServices.loginOrRegisterWithGoogle(req.body.code);
+    const session = await loginOrRegisterWithGoogle(req.body.code);
 
     setupSession(res, session);
 
